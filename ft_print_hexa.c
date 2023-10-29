@@ -6,12 +6,11 @@
 /*   By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 11:52:37 by lpetit            #+#    #+#             */
-/*   Updated: 2023/10/28 13:18:18 by lpetit           ###   ########.fr       */
+/*   Updated: 2023/10/29 18:11:49 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdarg.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include "ft_printf.h"
 
 static int	ft_count_digit(unsigned long long value)
