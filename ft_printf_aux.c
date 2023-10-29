@@ -6,7 +6,7 @@
 /*   By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 16:51:48 by lpetit            #+#    #+#             */
-/*   Updated: 2023/10/29 17:05:37 by lpetit           ###   ########.fr       */
+/*   Updated: 2023/10/29 17:54:39 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <unistd.h>
@@ -22,6 +22,12 @@ int	ft_print_str(va_list arg, int len)
 	char	*s;
 
 	s = va_arg(arg, char *);
+	if (!s)
+	{
+		write(1, "(null)", 6);
+		len += 6;
+		return (len);
+	}
 	while (*s)
 	{
 		ft_putchar(*s);
