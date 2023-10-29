@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_ptr.c                                     :+:      :+:    :+:   */
+/*   ft_print_hexa.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/26 16:15:30 by lpetit            #+#    #+#             */
-/*   Updated: 2023/10/27 20:42:37 by lpetit           ###   ########.fr       */
+/*   Created: 2023/10/28 11:52:37 by lpetit            #+#    #+#             */
+/*   Updated: 2023/10/28 13:18:18 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdarg.h>
@@ -14,13 +14,15 @@
 #include <unistd.h>
 #include "ft_printf.h"
 
-int	ft_count_digit(unsigned long long value)
+static int	ft_count_digit(unsigned long long value)
 {
 	int	digit_count;
 
 	digit_count = 0;
 	if (value == 0)
 		return (1);
+	if (value > 15 && value < 32)
+		return (2);
 	while ((value / 16) > 1)
 	{
 		value /= 16;
@@ -30,23 +32,21 @@ int	ft_count_digit(unsigned long long value)
 	return (digit_count);
 }
 
-int	ft_print_buffer(char *str, unsigned long long value, int digit, int len)
+static int	ft_print_buffer(char *str, unsigned int value, int digit, int x)
 {
 	const char	*base;
+	int			len;
 
-	base = "0123456789abcdef";
-	if (value == 0)
-	{
-		str[2] = '0';
-		return (len);
-	}
-	while (digit >= 2)
+	len = 0;
+	if (x == 'X')
+		base = "0123456789ABCDEF";
+	else
+		base = "0123456789abcdef";
+	while (digit >= 0)
 	{
 		str[digit--] = base[value % 16];
 		value /= 16;
 	}
-	str[0] = '0';
-	str[1] = 'x';
 	while (*str)
 	{
 		ft_putchar(*str);
@@ -56,27 +56,20 @@ int	ft_print_buffer(char *str, unsigned long long value, int digit, int len)
 	return (len);
 }
 
-int	ft_print_ptr(va_list arg, int len)
+int	ft_print_hexa(va_list arg, int len, int x)
 {
 	char				*buffer;
-	void				*ptr;
 	int					digit;
-	unsigned long long	value;
+	unsigned int		value;
 
-	ptr = va_arg(arg, void *);
-	if (!ptr)
-	{
-		write(1, "(nil)", 5);
-		return (5);
-	}
-	value = (unsigned long long)ptr;
+	value = va_arg(arg, unsigned int);
 	digit = ft_count_digit(value);
-	buffer = (char *)malloc((digit + 3) * sizeof(char));
+	buffer = (char *)malloc((digit + 1) * sizeof(char));
 	if (!buffer)
 		return (0);
-	digit += 1;
-	buffer[digit + 1] = '\0';
-	len = ft_print_buffer(buffer, value, digit, len);
+	buffer[digit] = '\0';
+	digit -= 1;
+	len += ft_print_buffer(buffer, value, digit, x);
 	free(buffer);
 	return (len);
 }

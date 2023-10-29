@@ -6,7 +6,7 @@
 #    By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/20 12:47:37 by lpetit            #+#    #+#              #
-#    Updated: 2023/10/26 15:46:43 by lpetit           ###   ########.fr        #
+#    Updated: 2023/10/29 17:07:46 by lpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,18 +18,16 @@ INC = -I.
 
 CFLAGS = -Wall -Wextra -Werror $(INC)
 
-SRC =	ft_printf.c ft_printf_aux.c
+SRC =	ft_printf.c ft_printf_aux.c ft_print_ptr.c \
+	ft_print_hexa.c \
 
 OBJ = $(SRC:.c=.o)
 
-.PHONY: all bonus clean fclean re cleanbonus
+.PHONY: all clean fclean re
 
 all:		$(NAME)
 
 $(NAME):	$(OBJ)
-		ar rc $(NAME) $(OBJ)
-
-bonus:		$(OBJ_BONUS)
 		ar rc $(NAME) $(OBJ)
 
 clean:
