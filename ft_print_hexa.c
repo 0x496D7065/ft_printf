@@ -6,7 +6,7 @@
 /*   By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 11:52:37 by lpetit            #+#    #+#             */
-/*   Updated: 2023/10/29 18:11:49 by lpetit           ###   ########.fr       */
+/*   Updated: 2023/11/15 09:44:33 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdarg.h>
@@ -25,6 +25,8 @@ static int	ft_count_digit(unsigned long long value)
 	while ((value / 16) > 1)
 	{
 		value /= 16;
+		if (value > 15 && value < 32)
+			digit_count++;
 		digit_count++;
 	}
 	digit_count++;

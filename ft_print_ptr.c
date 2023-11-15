@@ -6,7 +6,7 @@
 /*   By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:15:30 by lpetit            #+#    #+#             */
-/*   Updated: 2023/10/29 18:03:23 by lpetit           ###   ########.fr       */
+/*   Updated: 2023/11/15 09:42:16 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdarg.h>
@@ -26,6 +26,8 @@ int	ft_count_digit(unsigned long long value)
 	while ((value / 16) > 1)
 	{
 		value /= 16;
+		if (value > 15 && value < 32)
+			digit_count++;
 		digit_count++;
 	}
 	digit_count++;
@@ -68,8 +70,8 @@ int	ft_print_ptr(va_list arg, int len)
 	ptr = va_arg(arg, void *);
 	if (!ptr)
 	{
-		write(1, "(nil)", 5);
-		len += 5;
+		write(1, "0x0", 3);
+		len += 3;
 		return (len);
 	}
 	value = (unsigned long long)ptr;
